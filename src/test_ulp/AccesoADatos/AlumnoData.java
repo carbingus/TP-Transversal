@@ -9,7 +9,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
-import test_ulp.Entidades.Alumnos;
+import test_ulp.Entidades.Alumno;
 
 public class AlumnoData {
 
@@ -20,7 +20,7 @@ public class AlumnoData {
             con = Conexion.getConexion();
     }
 
-    public void guardarAlumno(Alumnos alumno) {
+    public void guardarAlumno(Alumno alumno) {
 
         String sql = "INSERT INTO alumno (dni, apellido, nombre, fechaNacimiento, estado) VALUES (?, ?, ?, ?, ?)";
         try {
@@ -47,8 +47,8 @@ public class AlumnoData {
 
     }
 
-    public Alumnos buscarAlumno(int id) {
-        Alumnos alumno = new Alumnos();
+    public Alumno buscarAlumno(int id) {
+        Alumno alumno = new Alumno();
         String sql = "SELECT dni, apellido, nombre, fechaNacimiento FROM alumno WHERE idAlumno=? AND estado = 1";
         PreparedStatement ps = null;
         try {
@@ -75,7 +75,7 @@ public class AlumnoData {
         return alumno;
     }
 
-    public Alumnos modificarAlumno(Alumnos alumno) {
+    public Alumno modificarAlumno(Alumno alumno) {
 
         String sql = "UPDATE alumno SET dni = ? , apellido = ?, nombre = ?, fechaNacimiento = ? WHERE  idAlumno = ?";
         PreparedStatement ps = null;
@@ -101,15 +101,15 @@ public class AlumnoData {
         return alumno;
     }
 
-    public List<Alumnos> listarAlumnos() {
+    public List<Alumno> listarAlumnos() {
 
-        List<Alumnos> alumnos = new ArrayList<>();
+        List<Alumno> alumnos = new ArrayList<>();
         try {
             String sql = "SELECT * FROM alumno WHERE estado = 1 ";
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Alumnos alumno = new Alumnos();
+                Alumno alumno = new Alumno();
 
                 alumno.setId_alumno(rs.getInt("idAlumno"));
                 alumno.setDni_alumno(rs.getInt("dni"));

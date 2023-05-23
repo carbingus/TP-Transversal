@@ -28,7 +28,7 @@ public class InscripcionData {
     public void inscribir(Inscripcion insc) {
     }
 
-    public Alumnos buscarAlumno(int id) {
+    public Alumno buscarAlumno(int id) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 

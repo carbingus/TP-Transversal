@@ -1,16 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package test_ulp.Entidades;
 
 import java.time.LocalDate;
 
-/**
- *
- * @author extha
- */
-public class Alumnos {
+public class Alumno {
     private int id_alumno;
     private int dni_alumno;
     private String apellido_alumno;
@@ -18,10 +10,10 @@ public class Alumnos {
     private LocalDate fechaNacimiento;
     private boolean estado_alumno;
 
-    public Alumnos() {
+    public Alumno() {
     }
 
-    public Alumnos(int id_alumno, int dni_alumno, String apellido_alumno, String nombre_alumno, LocalDate fechaNacimiento, boolean estado_alumno) {
+    public Alumno(int id_alumno, int dni_alumno, String apellido_alumno, String nombre_alumno, LocalDate fechaNacimiento, boolean estado_alumno) {
         this.id_alumno = id_alumno;
         this.dni_alumno = dni_alumno;
         this.apellido_alumno = apellido_alumno;
