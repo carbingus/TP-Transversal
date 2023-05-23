@@ -1,7 +1,6 @@
 package test_ulp.AccesoADatos;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,11 +8,10 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
-import test_ulp.Entidades.*;
+import test_ulp.Entidades.Materia;
 
 public class MateriaData {
-
-    private Connection con;
+    private Connection con = null;
 
     private Conexion conexion;
 
