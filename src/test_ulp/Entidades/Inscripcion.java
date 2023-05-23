@@ -1,8 +1,6 @@
-
 package test_ulp.Entidades;
 
 public class Inscripcion {
-    
     private int id_inscripto;
     private double nota;
     private Alumno alumno;
@@ -10,15 +8,15 @@ public class Inscripcion {
 
     public Inscripcion() {
     }
-    
-    public Inscripcion(int id_inscripto, double nota, Alumno alumno, Materia materia){
-        this.id_inscripto = id_inscripto;
+
+    public Inscripcion(double nota, Alumno alumno, Materia materia) {
         this.nota = nota;
         this.alumno = alumno;
         this.materia = materia;
     }
-
-    public Inscripcion(double nota, Alumno alumno, Materia materia) {
+    
+    public Inscripcion(int id_inscripto, double nota, Alumno alumno, Materia materia){
+        this.id_inscripto = id_inscripto;
         this.nota = nota;
         this.alumno = alumno;
         this.materia = materia;
