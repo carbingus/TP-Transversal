@@ -13,6 +13,14 @@ public class Alumno {
     public Alumno() {
     }
 
+    public Alumno(int dni_alumno, String apellido_alumno, String nombre_alumno, LocalDate fechaNacimiento, boolean estado_alumno) {
+        this.dni_alumno = dni_alumno;
+        this.apellido_alumno = apellido_alumno;
+        this.nombre_alumno = nombre_alumno;
+        this.fechaNacimiento = fechaNacimiento;
+        this.estado_alumno = estado_alumno;
+    }
+
     public Alumno(int id_alumno, int dni_alumno, String apellido_alumno, String nombre_alumno, LocalDate fechaNacimiento, boolean estado_alumno) {
         this.id_alumno = id_alumno;
         this.dni_alumno = dni_alumno;
@@ -21,7 +29,7 @@ public class Alumno {
         this.fechaNacimiento = fechaNacimiento;
         this.estado_alumno = estado_alumno;
     }
-
+    
     public int getId_alumno() {
         return id_alumno;
     }
