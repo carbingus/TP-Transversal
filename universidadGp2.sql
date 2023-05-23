@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 23-05-2023 a las 17:47:17
+-- Tiempo de generación: 23-05-2023 a las 17:52:56
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -80,7 +80,7 @@ INSERT INTO `inscripcion` (`id_inscripto`, `nota`, `id_alumno`, `id_materia`) VA
 CREATE TABLE `materias` (
   `id_materia` int(11) NOT NULL,
   `nombre_materia` varchar(30) NOT NULL,
-  `año` int(11) NOT NULL,
+  `anio` int(11) NOT NULL,
   `estado` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -88,7 +88,7 @@ CREATE TABLE `materias` (
 -- Volcado de datos para la tabla `materias`
 --
 
-INSERT INTO `materias` (`id_materia`, `nombre_materia`, `año`, `estado`) VALUES
+INSERT INTO `materias` (`id_materia`, `nombre_materia`, `anio`, `estado`) VALUES
 (7, 'Matematica 1', 1, 1),
 (8, 'Quimica 1', 2, 1),
 (9, 'Tecnicas de estudio', 1, 1),
