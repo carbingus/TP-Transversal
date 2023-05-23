@@ -11,14 +11,24 @@ import javax.swing.JOptionPane;
 import test_ulp.Entidades.Materia;
 
 public class MateriaData {
-    private Connection con = null;
+    private Connection conexion = null;
 
-    private Conexion conexion;
-
-    public MateriaData(Conexion conexion) {
+    public MateriaData() {
+        conexion = Conexion.getConexion();
     }
-
+    
     public void guardarMateria(Materia materia) {
+        try {
+            String sql = "INSERT INTO materias(nombre_materia,anio,estado) VALUES (?,?,?);";
+            PreparedStatement PS = conexion.prepareStatement(sql);
+            PS.setString(1, materia.getNombre_materia());
+            PS.setInt(2, materia.getAnio());
+            PS.setBoolean(3, materia.isEstado());
+            PS.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Materia agregada!");
+        } catch (SQLException e) {
+            JOptionPane.showConfirmDialog(null, "Error: "+e.getMessage());
+        }
     }
 
     public Materia buscarMateria(int id) {
