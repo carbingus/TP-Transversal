@@ -78,4 +78,9 @@ public class Alumno {
         this.estado_alumno = estado_alumno;
     }
     
+    @Override
+    public String toString() {
+        return dni_alumno + " "+ apellido_alumno + " " +  nombre_alumno;
+    }
+  
 }
