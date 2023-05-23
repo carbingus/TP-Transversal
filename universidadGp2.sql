@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 22-05-2023 a las 04:47:09
+-- Tiempo de generación: 23-05-2023 a las 17:47:17
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -54,7 +54,7 @@ INSERT INTO `alumnos` (`id_alumno`, `dni_alumno`, `nombre_alumno`, `apellido_alu
 
 CREATE TABLE `inscripcion` (
   `id_inscripto` int(11) NOT NULL,
-  `nota` int(11) DEFAULT NULL,
+  `nota` decimal(4,2) DEFAULT NULL,
   `id_alumno` int(11) NOT NULL,
   `id_materia` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -64,12 +64,12 @@ CREATE TABLE `inscripcion` (
 --
 
 INSERT INTO `inscripcion` (`id_inscripto`, `nota`, `id_alumno`, `id_materia`) VALUES
-(1, 0, 6, 7),
-(2, 0, 6, 8),
-(3, 8, 7, 9),
-(4, 8, 7, 10),
-(5, 0, 8, 7),
-(6, 0, 8, 11);
+(1, 0.00, 6, 7),
+(2, 0.00, 6, 8),
+(3, 8.00, 7, 9),
+(4, 8.00, 7, 10),
+(5, 0.00, 8, 7),
+(6, 0.00, 8, 11);
 
 -- --------------------------------------------------------
 
@@ -80,7 +80,6 @@ INSERT INTO `inscripcion` (`id_inscripto`, `nota`, `id_alumno`, `id_materia`) VA
 CREATE TABLE `materias` (
   `id_materia` int(11) NOT NULL,
   `nombre_materia` varchar(30) NOT NULL,
-  `descripcion_materia` varchar(60) NOT NULL,
   `año` int(11) NOT NULL,
   `estado` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -89,12 +88,12 @@ CREATE TABLE `materias` (
 -- Volcado de datos para la tabla `materias`
 --
 
-INSERT INTO `materias` (`id_materia`, `nombre_materia`, `descripcion_materia`, `año`, `estado`) VALUES
-(7, 'Matematica 1', 'Matematica Introductoria', 1, 1),
-(8, 'Quimica 1', 'Quimica Introductoria', 2, 1),
-(9, 'Tecnicas de estudio', 'Formas de agilizar aprendizaje', 1, 1),
-(10, 'Ciencias Naturales 1', 'Ciencias biologicas introductorias', 2, 1),
-(11, 'Laboratorio', 'Experimentos cientificos para aprendizaje', 1, 1);
+INSERT INTO `materias` (`id_materia`, `nombre_materia`, `año`, `estado`) VALUES
+(7, 'Matematica 1', 1, 1),
+(8, 'Quimica 1', 2, 1),
+(9, 'Tecnicas de estudio', 1, 1),
+(10, 'Ciencias Naturales 1', 2, 1),
+(11, 'Laboratorio', 1, 1);
 
 --
 -- Índices para tablas volcadas
