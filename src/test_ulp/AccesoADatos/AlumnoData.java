@@ -20,9 +20,9 @@ public class AlumnoData {
             con = Conexion.getConexion();
     }
 
-    public void guardarAlumno(Alumno alumno) {
+    public void guardarAlumno(Alumno alumno) { //creacion de nuevo alumno
 
-        String sql = "INSERT INTO alumno (dni, apellido, nombre, fechaNacimiento, estado) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO alumnos (dni_alumno, nombre_alumno, apellido_alumno, fechaNacimiento, estado_alumno) VALUES (?, ?, ?, ?, ?)";
         try {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, alumno.getDni_alumno());
@@ -47,9 +47,9 @@ public class AlumnoData {
 
     }
 
-    public Alumno buscarAlumno(int id) {
+    public Alumno buscarAlumno(int id) { //buscar alumno activo (estado_alumno = 1)
         Alumno alumno = new Alumno();
-        String sql = "SELECT dni, apellido, nombre, fechaNacimiento FROM alumno WHERE idAlumno=? AND estado = 1";
+        String sql = "SELECT dni_alumno, apellido_alumno, nombre_alumno, fechaNacimiento FROM alumnos WHERE id_alumno=? AND estado_alumno = 1";
         PreparedStatement ps = null;
         try {
             ps = con.prepareStatement(sql);
@@ -58,9 +58,9 @@ public class AlumnoData {
 
             if (rs.next()) {
                 alumno.setId_alumno(id);
-                alumno.setDni_alumno(rs.getInt("dni"));
-                alumno.setApellido_alumno(rs.getString("apellido"));
-                alumno.setNombre_alumno(rs.getString("nombre"));
+                alumno.setDni_alumno(rs.getInt("dni_alumno"));
+                alumno.setApellido_alumno(rs.getString("apellido_alumno"));
+                alumno.setNombre_alumno(rs.getString("nombre_alumno"));
                 alumno.setFechaNacimiento(rs.getDate("fechaNacimiento").toLocalDate());
                
 
@@ -75,9 +75,9 @@ public class AlumnoData {
         return alumno;
     }
 
-    public Alumno modificarAlumno(Alumno alumno) {
+    public Alumno modificarAlumno(Alumno alumno) { //modificar alumno pidiendo id para referenciar
 
-        String sql = "UPDATE alumno SET dni = ? , apellido = ?, nombre = ?, fechaNacimiento = ? WHERE  idAlumno = ?";
+        String sql = "UPDATE alumnos SET dni_alumno = ? , apellido_alumno = ?, nombre_alumno = ?, fechaNacimiento = ? WHERE  id_alumno = ?";
         PreparedStatement ps = null;
 
         try {
@@ -86,7 +86,7 @@ public class AlumnoData {
             ps.setString(2, alumno.getApellido_alumno());
             ps.setString(3, alumno.getNombre_alumno());
             ps.setDate(4, Date.valueOf(alumno.getFechaNacimiento()));
-            ps.setInt(4, alumno.getId_alumno());
+            ps.setInt(5, alumno.getId_alumno());
             int exito = ps.executeUpdate();
             
             if (exito == 1) {
@@ -101,22 +101,22 @@ public class AlumnoData {
         return alumno;
     }
 
-    public List<Alumno> listarAlumnos() {
+    public List<Alumno> listarAlumnos() { //mostrar todos los alumnos que esten activos (estado_alumno = 1)
 
         List<Alumno> alumnos = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM alumno WHERE estado = 1 ";
+            String sql = "SELECT * FROM alumnos WHERE estado_alumno = 1 ";
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Alumno alumno = new Alumno();
 
-                alumno.setId_alumno(rs.getInt("idAlumno"));
-                alumno.setDni_alumno(rs.getInt("dni"));
-                alumno.setApellido_alumno(rs.getString("apellido"));
-                alumno.setNombre_alumno(rs.getString("nombre"));
+                alumno.setId_alumno(rs.getInt("id_alumno"));
+                alumno.setDni_alumno(rs.getInt("dni_alumno"));
+                alumno.setApellido_alumno(rs.getString("apellido_alumno"));
+                alumno.setNombre_alumno(rs.getString("nombre_alumno"));
                 alumno.setFechaNacimiento(rs.getDate("fechaNacimiento").toLocalDate());
-                alumno.setEstado_alumno(rs.getBoolean("estado"));
+                alumno.setEstado_alumno(rs.getBoolean("estado_alumno"));
                 alumnos.add(alumno);
             }
             ps.close();
@@ -128,10 +128,10 @@ public class AlumnoData {
         return alumnos;
     }
 
-    public void eliminarAlumno(int id) {
+    public void eliminarAlumno(int id) { //eliminar/desactivar alumno (estado_alumno = 0) usando id_alumno por referencia
 
         try {
-            String sql = "UPDATE alumno SET estado = 0 WHERE idAlumno = ? ";
+            String sql = "UPDATE alumnos SET estado_alumno = 0 WHERE id_alumno = ? ";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, id);
             int fila=ps.executeUpdate();
@@ -144,10 +144,10 @@ public class AlumnoData {
         }
     }
 
-    public void activarAlumno(int id) {
+    public void activarAlumno(int id) { //activar alumno (estado_alumno = 1) usando id_alumno por referencia
 
         try {
-            String sql = "UPDATE alumno SET estado = 1 WHERE idAlumno = ? ";
+            String sql = "UPDATE alumnos SET estado_alumno = 1 WHERE id_alumno = ? ";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, id);
             int fila=ps.executeUpdate();
