@@ -18,15 +18,17 @@ import javax.swing.JOptionPane;
 public class InscripcionData {
 
     private Connection con = null;
-    private MateriaData matData = new MateriaData();
-    private AlumnoData alumData = new AlumnoData();
+    private MateriaData matData = new MateriaData(); //generamos un objeto MateriaData
+    private AlumnoData alumData = new AlumnoData(); //generamos un objeto AlumnoData
 //    private Conexion conexion;
     
-    public InscripcionData(Conexion conexion){
+    public InscripcionData(){
+        //aca proveemos el metodo para que podamos conectar la clase a la base de datos
         this.con = Conexion.getConexion();
     }
     
-    private void InscribirAlumno(Inscripcion insc){
+    public void InscribirAlumno(Inscripcion insc){
+        // aca AGREGAMOS (insert into) en la tabla inscripcion, un alumno dentro de una materia, con una nota
         String sql = "INSERT INTO inscripcion(id_alumno, id_materia, nota) VALUES (?, ?, ?)";
         try{
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -49,8 +51,12 @@ public class InscripcionData {
     }
     
     public List<Inscripcion> obtenerInscripciones(){
+        //aca obtenemos la lista de alumnos inscriptos y en que materia se encuentran inscritos
+        //ademas de recibir la nota que cada uno posee respectivamente en cada materia
         List<Inscripcion> cursadas = new ArrayList<>();
         try{
+            //nuestro string PIDE toda la informacion de todas las tablas (select * from)
+            //dentro de la tabla inscripcion
             String sql = "SELECT * FROM inscripcion;";
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
