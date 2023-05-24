@@ -20,19 +20,32 @@ public class MateriaData {
     public void guardarMateria(Materia materia) {
         try {
             String sql = "INSERT INTO materias(nombre_materia,anio,estado) VALUES (?,?,?);";
-            PreparedStatement PS = conexion.prepareStatement(sql);
-            PS.setString(1, materia.getNombre_materia());
-            PS.setInt(2, materia.getAnio());
-            PS.setBoolean(3, materia.isEstado());
-            PS.executeUpdate();
+            PreparedStatement ps = conexion.prepareStatement(sql);
+            ps.setString(1, materia.getNombre_materia());
+            ps.setInt(2, materia.getAnio());
+            ps.setBoolean(3, materia.isEstado());
+            ps.executeUpdate();
             JOptionPane.showMessageDialog(null, "Materia agregada!");
+            ps.close();
         } catch (SQLException e) {
             JOptionPane.showConfirmDialog(null, "Error: "+e.getMessage());
         }
     }
 
     public Materia buscarMateria(int id) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        Materia materia = null;
+        try {
+            String sql = "SELECT * FROM materias WHERE id_materia = ? AND estado = 1";
+            PreparedStatement ps = conexion.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                materia = new Materia(id, rs.getString("nombre_materia"), rs.getInt("anio"), rs.getBoolean("estado"));
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error: "+e.getMessage());
+        }
+        return materia;
     }
 
     public Materia modificarMateria(int id, Materia materia) {
