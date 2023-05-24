@@ -14,6 +14,7 @@ public class Conexion {
     
     private Conexion(){} // metodo constructor
     
+    // aca simplemente generamos una conexion
     public static Connection getConexion(){
         if (connection == null){
             try{
@@ -23,9 +24,11 @@ public class Conexion {
                         getConnection(URL+DB, USUARIO, PASSWORD);
             } catch (SQLException ex){
                 JOptionPane.showMessageDialog(null, "Error al conectarse a la Base de Datos " + ex.getMessage());
+                //si hay error, pedimos informacion de por que no se puede conectar a la base de datos
           
             } catch (ClassNotFoundException ex){
                 JOptionPane.showMessageDialog(null, "Error al cargar los drivers " + ex.getLocalizedMessage());
+                //si hay error, pedimos informacion de por que no puede cargar los drivers
             }
         }
     return connection;
