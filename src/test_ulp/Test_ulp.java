@@ -10,12 +10,16 @@ public class Test_ulp {
         MateriaData md = new MateriaData();
 //        Materia m =  new Materia("Programacion 1", 1, true);
 //        md.guardarMateria(m);
-        
+        /*
         if (md.buscarMateria(9) == null) {
             JOptionPane.showMessageDialog(null, "Materia NO encontrada!");
         } else {
             JOptionPane.showMessageDialog(null, "Materia encontrada!");
         }
+        */
+        
+        md.modificarMateria(new Materia(13, "Programacion 2", 3, true));
+        
     }
     
 }

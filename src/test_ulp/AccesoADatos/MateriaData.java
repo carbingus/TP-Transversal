@@ -48,8 +48,18 @@ public class MateriaData {
         return materia;
     }
 
-    public Materia modificarMateria(int id, Materia materia) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public void modificarMateria(Materia materia) {
+        try {
+            String sql = "UPDATE materias SET nombre_materia = ?, anio = ? WHERE id_materia = ? AND estado = 1;";
+            PreparedStatement ps = conexion.prepareStatement(sql);
+            ps.setString(1, materia.getNombre_materia());
+            ps.setInt(2, materia.getAnio());
+            ps.setInt(3, materia.getId_materia());
+            ps.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Materia actualizada!");
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error: "+e.getMessage());
+        }
     }
 
     public void eliminarMateria(int id) {
@@ -58,7 +68,5 @@ public class MateriaData {
     public List<Materia> listarMaterias() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-
-    public void activarMateria(int id) {
-    }
+    
 }
