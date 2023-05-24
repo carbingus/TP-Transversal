@@ -6,6 +6,10 @@ public class Inscripcion {
     private double nota;
     private Alumno alumno;
     private Materia materia;
+    
+    public Inscripcion(){
+        
+    }
 
     public Inscripcion(int id_inscripto, Alumno alumno, Materia materia, double nota){
         this.id_inscripto = id_inscripto;
@@ -36,8 +40,6 @@ public class Inscripcion {
         this.materia = materia;
     }
     
-    public Inscripcion(){
-    }
     
     public Inscripcion(double nota){
         this.nota = nota;
