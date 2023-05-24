@@ -1,5 +1,6 @@
 package test_ulp.AccesoADatos;
 
+import java.awt.HeadlessException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -72,13 +73,40 @@ public class MateriaData {
             ps.executeUpdate();
             JOptionPane.showMessageDialog(null, "Materia eliminada!");
             ps.close();
-        } catch (Exception e) {
+        } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error: "+e.getMessage());
         }
     }
 
     public List<Materia> listarMaterias() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        List<Materia> listaMaterias = new ArrayList();
+        try {
+            String sql = "SELECT * FROM materias WHERE estado = 1;";
+            PreparedStatement ps = conexion.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {                
+                listaMaterias.add(new Materia(rs.getInt("id_materia"), rs.getString("nombre_materia"), rs.getInt("anio"), rs.getBoolean("estado")));
+            }
+            ps.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error: "+e.getMessage());
+        }
+        return listaMaterias;
     }
+    
+    /*
+    public void activarMateria(int id) {
+        try {
+            String sql = "UPDATE materias SET estado = 1 WHERE id_materia = ?;";
+            PreparedStatement ps = conexion.prepareStatement(sql);
+            ps.setInt(1, id);
+            ps.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Materia activada!");
+            ps.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error: "+e.getMessage());
+        }
+    }
+    */
     
 }
