@@ -4,3 +4,5 @@ test-ulp.puml
 /build/
 nbproject/private/private.properties
 nbproject/project.properties
+*.properties
+*.properties

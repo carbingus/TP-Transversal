@@ -18,7 +18,9 @@ public class Test_ulp {
         }
         */
         
-        md.modificarMateria(new Materia(13, "Programacion 2", 3, true));
+//        md.modificarMateria(new Materia(13, "Programacion 2", 3, true));
+        
+        md.eliminarMateria(10);
         
     }
     

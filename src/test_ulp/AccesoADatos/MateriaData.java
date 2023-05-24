@@ -42,6 +42,7 @@ public class MateriaData {
             if (rs.next()) {
                 materia = new Materia(id, rs.getString("nombre_materia"), rs.getInt("anio"), rs.getBoolean("estado"));
             }
+            ps.close();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error: "+e.getMessage());
         }
@@ -57,12 +58,23 @@ public class MateriaData {
             ps.setInt(3, materia.getId_materia());
             ps.executeUpdate();
             JOptionPane.showMessageDialog(null, "Materia actualizada!");
+            ps.close();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error: "+e.getMessage());
         }
     }
 
     public void eliminarMateria(int id) {
+        try {
+            String sql = "UPDATE materias SET estado = 0 WHERE id_materia = ?;";
+            PreparedStatement ps = conexion.prepareStatement(sql);
+            ps.setInt(1, id);
+            ps.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Materia eliminada!");
+            ps.close();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error: "+e.getMessage());
+        }
     }
 
     public List<Materia> listarMaterias() {
