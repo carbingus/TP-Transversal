@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import javax.swing.JOptionPane;
 import test_ulp.AccesoADatos.*;
 import test_ulp.Entidades.*;
+import java.time.Month;
 
 public class Test_ulp {
 
@@ -11,7 +12,6 @@ public class Test_ulp {
         MateriaData md = new MateriaData(); //generamos un nuevo MateriaData
         AlumnoData ad = new AlumnoData(); //generamos un nuevo AlumnoData
         InscripcionData id = new InscripcionData();
-        
         
         //creamos una nueva materia y le asignamos informacion respectiva
         //Materia("nombre_materia",anio, estado_materia)
@@ -26,10 +26,10 @@ public class Test_ulp {
         
          Materia m =  new Materia("Programacion 3", 1, true); 
          md.guardarMateria(m); // con este metodo, se guarda la materia en la base de datos
-         Alumno a = new Alumno(32341932, "Soloa", "Juanjo", LocalDate.parse("21-03-1999"), true);
+         Alumno a = new Alumno(32341932, "Soloa", "Juanjo", LocalDate.of(1999, Month.MARCH, 21), true);
          ad.guardarAlumno(a);
-         Inscripcion i = new Inscripcion(a, m, 3);
-         id.InscribirAlumno(i);
+//         Inscripcion i = new Inscripcion()
+//         id.InscribirAlumno(i);
          
          //el siguiente metodo sirve para verificar si la materia existe o no, dentro de la base de datos
          //utilizando md.buscarMateria(id_materia) como parametro para realizar la busqueda
