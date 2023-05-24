@@ -19,7 +19,11 @@ public class MateriaData {
     }
     
     public void guardarMateria(Materia materia) {
+        //aca creamos materias nuevas
         try {
+            //nuestro string AGREGA (insert into) a la tabla materias, una materia
+            //pidiendo nombre, a que año pertenece (ej. primer año/segundo año), y el estado
+            //de la materia, es decir, si la materia esta activa o no
             String sql = "INSERT INTO materias(nombre_materia,anio,estado) VALUES (?,?,?);";
             PreparedStatement ps = conexion.prepareStatement(sql);
             ps.setString(1, materia.getNombre_materia());
@@ -34,8 +38,12 @@ public class MateriaData {
     }
 
     public Materia buscarMateria(int id) {
+        //aca buscamos una materia en especifico por id
+        //generamos un objeto Materia y lo asignamos nulo
         Materia materia = null;
         try {
+            //nuestro string PIDE TODO (Select * from) de la tabla materias, donde el id_materia es desconocido
+            //pero el estado de la materia es 1. es decir, la materia esta activa
             String sql = "SELECT * FROM materias WHERE id_materia = ? AND estado = 1";
             PreparedStatement ps = conexion.prepareStatement(sql);
             ps.setInt(1, id);
@@ -51,7 +59,10 @@ public class MateriaData {
     }
 
     public void modificarMateria(Materia materia) {
+        //aca modificamos los datos de una materia
         try {
+            //nuestro string ACTUALIZA (update) la tabla materias, para cambiar el nombre de la materia
+            //el año de cursada, donde el id_materia sea especificado, y su estado este activo
             String sql = "UPDATE materias SET nombre_materia = ?, anio = ? WHERE id_materia = ? AND estado = 1;";
             PreparedStatement ps = conexion.prepareStatement(sql);
             ps.setString(1, materia.getNombre_materia());
@@ -66,7 +77,10 @@ public class MateriaData {
     }
 
     public void eliminarMateria(int id) {
+        //aca eliminamos/damos de baja una materia
         try {
+            //nuestro string ACTUALIZA (update) la tabla materias y le dice que
+            //CAMBIE (set) el estado de la materia a 0, segun el id_materia que le pasamos
             String sql = "UPDATE materias SET estado = 0 WHERE id_materia = ?;";
             PreparedStatement ps = conexion.prepareStatement(sql);
             ps.setInt(1, id);
@@ -79,8 +93,11 @@ public class MateriaData {
     }
 
     public List<Materia> listarMaterias() {
+        //esta List nos permite listar todas las materias activas
         List<Materia> listaMaterias = new ArrayList();
         try {
+            //el string PIDE TODA la informacion(select * from) en la tabla materias
+            //de aqueyas materias cuales esten activas
             String sql = "SELECT * FROM materias WHERE estado = 1;";
             PreparedStatement ps = conexion.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
