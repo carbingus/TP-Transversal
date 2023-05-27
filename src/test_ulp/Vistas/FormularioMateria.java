@@ -1,9 +1,17 @@
 package test_ulp.Vistas;
 
+import java.awt.Color;
+import javax.swing.JOptionPane;
+import test_ulp.AccesoADatos.MateriaData;
+import test_ulp.Entidades.Materia;
+
 public class FormularioMateria extends javax.swing.JInternalFrame {
+    MateriaData md = new MateriaData();
+    Materia materia = null;
 
     public FormularioMateria() {
         initComponents();
+        txtCodigo.requestFocus();
     }
 
     @SuppressWarnings("unchecked")
@@ -27,6 +35,11 @@ public class FormularioMateria extends javax.swing.JInternalFrame {
         setClosable(true);
 
         btnGuardar.setText("Guardar");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
 
         lblTitulo.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         lblTitulo.setText("Formulario de Materias");
@@ -34,6 +47,11 @@ public class FormularioMateria extends javax.swing.JInternalFrame {
         lblCodigo.setText("Codigo:");
 
         btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
 
         lblNombre.setText("Nombre:");
 
@@ -41,11 +59,22 @@ public class FormularioMateria extends javax.swing.JInternalFrame {
 
         lblEstado.setText("Estado:");
 
+        lblEstadoValor.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         lblEstadoValor.setText("-/-");
 
         btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         btnNuevo.setText("Nuevo");
+        btnNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -76,9 +105,11 @@ public class FormularioMateria extends javax.swing.JInternalFrame {
                                 .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(btnBuscar))
-                            .addComponent(lblEstadoValor)
                             .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtAnio, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(txtAnio, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(lblEstadoValor)))))
                 .addContainerGap(80, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -99,11 +130,11 @@ public class FormularioMateria extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtAnio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblAnio))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblEstadoValor)
                     .addComponent(lblEstado))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGuardar)
                     .addComponent(btnEliminar)
@@ -114,7 +145,47 @@ public class FormularioMateria extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        Integer id = Integer.parseInt(txtCodigo.getText());
+        materia = md.buscarMateria(id);
+        if (materia != null) {
+            txtNombre.setText(materia.getNombre_materia());
+            txtAnio.setText(materia.getAnio()+"");
+            if (materia.isEstado()) {
+                lblEstadoValor.setText("Activa");
+                lblEstadoValor.setForeground(new Color(0, 200,0));
+            } else {
+                lblEstadoValor.setText("Eliminada");
+                lblEstadoValor.setForeground(Color.red);
+            }
+        } else {
+            limpiar();
+            txtCodigo.requestFocus();
+            JOptionPane.showMessageDialog(this, "No existe una materia asociada con el codigo.");
+        }
+        
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        
+    }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
+        limpiar();
+        txtCodigo.requestFocus();
+    }//GEN-LAST:event_btnNuevoActionPerformed
+
+    public void limpiar() {
+        txtCodigo.setText("");
+        txtNombre.setText("");
+        txtAnio.setText("");
+        lblEstadoValor.setText("-/-");
+        lblEstadoValor.setForeground(Color.black);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;

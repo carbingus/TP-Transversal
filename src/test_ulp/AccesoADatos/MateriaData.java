@@ -44,7 +44,7 @@ public class MateriaData {
         try {
             //nuestro string PIDE TODO (Select * from) de la tabla materias, donde el id_materia es desconocido
             //pero el estado de la materia es 1. es decir, la materia esta activa
-            String sql = "SELECT * FROM materias WHERE id_materia = ? AND estado = 1";
+            String sql = "SELECT * FROM materias WHERE id_materia = ?"; // AND estado = 1 (para seleccionar todas las activas)
             PreparedStatement ps = conexion.prepareStatement(sql);
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
