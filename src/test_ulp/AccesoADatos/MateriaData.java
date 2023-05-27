@@ -1,6 +1,5 @@
 package test_ulp.AccesoADatos;
 
-import java.awt.HeadlessException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -25,12 +24,16 @@ public class MateriaData {
             //pidiendo nombre, a que año pertenece (ej. primer año/segundo año), y el estado
             //de la materia, es decir, si la materia esta activa o no
             String sql = "INSERT INTO materias(nombre_materia,anio,estado) VALUES (?,?,?);";
-            PreparedStatement ps = conexion.prepareStatement(sql);
+            PreparedStatement ps = conexion.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, materia.getNombre_materia());
             ps.setInt(2, materia.getAnio());
             ps.setBoolean(3, materia.isEstado());
             ps.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Materia agregada!");
+            ResultSet rs = ps.getGeneratedKeys();
+            if (rs.next()) {
+                materia.setId_materia(rs.getInt(1));
+            }
+            System.out.println("Materia agregada!");
             ps.close();
         } catch (SQLException e) {
             JOptionPane.showConfirmDialog(null, "Error: "+e.getMessage());
@@ -69,7 +72,7 @@ public class MateriaData {
             ps.setInt(2, materia.getAnio());
             ps.setInt(3, materia.getId_materia());
             ps.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Materia actualizada!");
+            System.out.println("Materia actualizada!");
             ps.close();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error: "+e.getMessage());
@@ -85,7 +88,7 @@ public class MateriaData {
             PreparedStatement ps = conexion.prepareStatement(sql);
             ps.setInt(1, id);
             ps.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Materia eliminada!");
+            System.out.println("Materia eliminada!");
             ps.close();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error: "+e.getMessage());

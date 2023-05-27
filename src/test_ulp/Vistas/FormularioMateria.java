@@ -11,6 +11,7 @@ public class FormularioMateria extends javax.swing.JInternalFrame {
 
     public FormularioMateria() {
         initComponents();
+        btnEliminar.setEnabled(false);
         txtCodigo.requestFocus();
     }
 
@@ -146,32 +147,46 @@ public class FormularioMateria extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        Integer id = Integer.parseInt(txtCodigo.getText());
-        materia = md.buscarMateria(id);
-        if (materia != null) {
-            txtNombre.setText(materia.getNombre_materia());
-            txtAnio.setText(materia.getAnio()+"");
-            if (materia.isEstado()) {
-                lblEstadoValor.setText("Activa");
-                lblEstadoValor.setForeground(new Color(0, 200,0));
-            } else {
-                lblEstadoValor.setText("Eliminada");
-                lblEstadoValor.setForeground(Color.red);
-            }
+        if (txtCodigo.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "El campo 'Codigo' esta vacio!");
         } else {
-            limpiar();
-            txtCodigo.requestFocus();
-            JOptionPane.showMessageDialog(this, "No existe una materia asociada con el codigo.");
-        }
+            Integer id = Integer.parseInt(txtCodigo.getText());
+            materia = md.buscarMateria(id);
         
+            if (materia != null) {
+                txtNombre.setText(materia.getNombre_materia());
+                txtAnio.setText(materia.getAnio()+"");
+                if (materia.isEstado()) {
+                    lblEstadoValor.setText("Activa");
+                    lblEstadoValor.setForeground(new Color(0, 200,0));
+                    btnEliminar.setEnabled(true);
+                } else {
+                    lblEstadoValor.setText("Eliminada");
+                    lblEstadoValor.setForeground(Color.red);
+                    btnEliminar.setEnabled(false);
+                }
+            } else {
+                limpiar();
+                txtCodigo.requestFocus();
+                JOptionPane.showMessageDialog(this, "No existe una materia asociada con el codigo.");
+            }
+        }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        
+        if (txtNombre.getText().equals("") || txtAnio.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "El campo Nombre y/o Año estan vacios!");
+        } else {
+            materia = new Materia(txtNombre.getText(), Integer.parseInt(txtAnio.getText()), true);
+            md.guardarMateria(materia);
+            JOptionPane.showMessageDialog(this, "Materia guardada! ID:"+materia.getId_materia());
+        }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        // TODO add your handling code here:
+        md.eliminarMateria(Integer.parseInt(txtCodigo.getText()));
+        limpiar();
+        JOptionPane.showMessageDialog(this, "Materia eliminada!");
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
@@ -185,6 +200,7 @@ public class FormularioMateria extends javax.swing.JInternalFrame {
         txtAnio.setText("");
         lblEstadoValor.setText("-/-");
         lblEstadoValor.setForeground(Color.black);
+        btnEliminar.setEnabled(false);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
