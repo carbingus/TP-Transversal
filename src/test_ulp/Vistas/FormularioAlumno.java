@@ -139,9 +139,9 @@ public class FormularioAlumno extends javax.swing.JInternalFrame {
                     .addComponent(jlblNomb)
                     .addComponent(jtxtNomb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jlblStado)
-                    .addComponent(jrbtStado))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jrbtStado)
+                    .addComponent(jlblStado))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jlblFechaNac)
@@ -215,7 +215,7 @@ public class FormularioAlumno extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
                try{ 
         Integer dni = Integer.parseInt(jtxtDNI.getText());
-        alumnoActual = alumData.buscarAlumno(dni);
+        alumnoActual = alumData.buscarAlumnoPorDni(dni);
 
         if (alumnoActual != null) {
             //Cambiar int a string
