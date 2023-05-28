@@ -83,6 +83,36 @@ public class AlumnoData {
 
         return alumno;
     }
+    
+    public Alumno buscarAlumnoPorDni(int dni) {
+        Alumno alumno = null;
+        String sql = "SELECT id_alumno, dni_alumno, apellido_alumno, nombre_alumno, fechaNacimiento FROM alumnos WHERE dni_alumno = ? AND estado_alumno = 1";
+        PreparedStatement ps = null;
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1,dni );
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                alumno=new Alumno();
+                alumno.setId_alumno(rs.getInt("id_alumno"));
+                alumno.setDni_alumno(rs.getInt("dni_alumno"));
+                alumno.setApellido_alumno(rs.getString("apellido_alumno"));
+                alumno.setNombre_alumno(rs.getString("nombre_alumno"));
+                alumno.setFechaNacimiento(rs.getDate("fechaNacimiento").toLocalDate());
+                alumno.setEstado_alumno(true);
+
+            } else {
+                JOptionPane.showMessageDialog(null, "No existe el alumno");
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Alumno. Codigo: "+ex.getMessage());
+        }
+
+       
+        return alumno;
+    }
 
     public Alumno modificarAlumno(Alumno alumno) { //modificar alumno pidiendo id para referenciar
         
