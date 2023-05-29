@@ -117,9 +117,8 @@ public class InscripcionData {
         List<Materia> materias = new ArrayList<>();
         
         try{
-            String sql = "SELECT inscripcion.id_materia, nombre_materia, anio FROM inscripcion,"
-                    + " materias WHERE inscripcion.id_materia = materia.id_materia\n" +
-                    "AND inscripcion.id_alumno = ?;";
+            String sql = "SELECT inscripcion.id_materia, nombre_materia, anio FROM inscripcion, materias "
+                    + "WHERE inscripcion.id_materia = materias.id_materia AND inscripcion.id_alumno = ?";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
@@ -128,7 +127,7 @@ public class InscripcionData {
                 materia = new Materia();
                 materia.setId_materia(rs.getInt("id_materia"));
                 materia.setNombre_materia(rs.getString("nombre_materia"));
-                materia.setAnio(rs.getInt("año"));
+                materia.setAnio(rs.getInt("anio"));
                 materias.add(materia);
             }      
             ps.close();
