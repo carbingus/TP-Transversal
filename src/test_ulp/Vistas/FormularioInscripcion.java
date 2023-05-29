@@ -1,10 +1,12 @@
 package test_ulp.Vistas;
 
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import test_ulp.AccesoADatos.AlumnoData;
 import test_ulp.AccesoADatos.InscripcionData;
 import test_ulp.Entidades.Alumno;
+import test_ulp.Entidades.Inscripcion;
 import test_ulp.Entidades.Materia;
 
 public class FormularioInscripcion extends javax.swing.JInternalFrame {
@@ -171,10 +173,13 @@ public class FormularioInscripcion extends javax.swing.JInternalFrame {
 
     private void rbtnInscriptosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnInscriptosActionPerformed
         limpiarTabla();
+        
         btnInscribir.setEnabled(false);
         btnAnularInscripcion.setEnabled(true);
+        
         Alumno alumno = (Alumno)cmbAlumnos.getSelectedItem();
         List<Materia> listaMaterias = iData.obtenerMateriasCursadas(alumno.getId_alumno());
+        
         for(Materia m : listaMaterias){
             tabla.addRow(new Object[] {m.getId_materia(), m.getNombre_materia(), m.getAnio()});
         }
@@ -182,21 +187,48 @@ public class FormularioInscripcion extends javax.swing.JInternalFrame {
 
     private void rbtnNoInscriptosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnNoInscriptosActionPerformed
         limpiarTabla();
+        
         btnInscribir.setEnabled(true);
         btnAnularInscripcion.setEnabled(false);
+        
         Alumno alumno = (Alumno)cmbAlumnos.getSelectedItem();
         List<Materia> listaMaterias = iData.obtenerMateriasNOCursadas(alumno.getId_alumno());
+        
         for(Materia m : listaMaterias){
             tabla.addRow(new Object[] {m.getId_materia(), m.getNombre_materia(), m.getAnio()});
         }
     }//GEN-LAST:event_rbtnNoInscriptosActionPerformed
 
     private void btnInscribirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInscribirActionPerformed
-        // TODO add your handling code here:
+        int fila = tablaMaterias.getSelectedRow();
+        
+        if (fila == -1) {
+            JOptionPane.showMessageDialog(this, "No seleccionaste una Materia!");
+        } else {
+            Alumno alumno = (Alumno)cmbAlumnos.getSelectedItem();
+            Materia materia = new Materia((Integer)tabla.getValueAt(fila, 0), (String)tabla.getValueAt(fila, 1), (Integer)tabla.getValueAt(fila, 2), true);
+            Inscripcion inscripcion = new Inscripcion(alumno, materia, 0);
+            
+            iData.guardarInscripcion(inscripcion);
+            
+            JOptionPane.showMessageDialog(this, "Inscripcion exitosa!");
+            tabla.removeRow(fila);
+        }
     }//GEN-LAST:event_btnInscribirActionPerformed
 
     private void btnAnularInscripcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnularInscripcionActionPerformed
-        // TODO add your handling code here:
+        int fila = tablaMaterias.getSelectedRow();
+        
+        if (fila == -1) {
+            JOptionPane.showMessageDialog(this, "No seleccionaste una Materia!");
+        } else {
+            Alumno alumno = (Alumno)cmbAlumnos.getSelectedItem();
+            Integer id_materia = (Integer)tabla.getValueAt(fila, 0);
+            iData.borrarInscripcionMateriaAlumno(alumno.getId_alumno(), id_materia);
+            
+            JOptionPane.showMessageDialog(this, "Hecho!");
+            tabla.removeRow(fila);
+        }
     }//GEN-LAST:event_btnAnularInscripcionActionPerformed
 
     public void limpiarTabla() {

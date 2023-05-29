@@ -27,7 +27,7 @@ public class InscripcionData {
         this.con = Conexion.getConexion();
     }
     
-    public void InscribirAlumno(Inscripcion insc){
+    public void guardarInscripcion(Inscripcion insc){
         // aca AGREGAMOS (insert into) en la tabla inscripcion, un alumno dentro de una materia, con una nota
         String sql = "INSERT INTO inscripcion(id_alumno, id_materia, nota) VALUES (?, ?, ?)";
         try{
@@ -41,7 +41,7 @@ public class InscripcionData {
             
             if (rs.next()){
                 insc.setIdInscripto(rs.getInt(1));
-                JOptionPane.showMessageDialog(null, "La inscripcion se ha realizado correctamente.");
+                System.out.println("La inscripcion se ha realizado correctamente.");
             }
         } catch (SQLException ex){
             
@@ -176,7 +176,7 @@ public class InscripcionData {
                
             int filas=ps.executeUpdate();
             if(filas > 0){
-                JOptionPane.showMessageDialog(null, "Inscripcion Eliminada");
+                System.out.println("Inscripcion Eliminada");
             }else {
                 JOptionPane.showMessageDialog(null, "La inscripcion indicada no existe.");
             }
