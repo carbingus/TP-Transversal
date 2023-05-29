@@ -118,7 +118,7 @@ public class InscripcionData {
         
         try{
             String sql = "SELECT inscripcion.id_materia, nombre_materia, anio FROM inscripcion, materias "
-                    + "WHERE inscripcion.id_materia = materias.id_materia AND inscripcion.id_alumno = ?";
+                    + "WHERE inscripcion.id_materia = materias.id_materia AND materias.estado AND inscripcion.id_alumno = ?;";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
@@ -139,10 +139,10 @@ public class InscripcionData {
 
     
     public List<Materia> obtenerMateriasNOCursadas(int id){
-        List<Materia> materias = new ArrayList<Materia>();
+        List<Materia> materias = new ArrayList<>();
           
         try {
-            String sql = "SELECT * FROM materias WHERE estado_materia = 1 AND id_materia not in "
+            String sql = "SELECT * FROM materias WHERE estado = 1 AND id_materia not in "
                     + "(SELECT id_materia FROM inscripcion WHERE id_alumno = ?);";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, id);
