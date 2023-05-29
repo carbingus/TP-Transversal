@@ -80,7 +80,7 @@ public class Alumno {
     
     @Override
     public String toString() {
-        return dni_alumno + " "+ apellido_alumno + " " +  nombre_alumno;
+        return id_alumno + " - "+ nombre_alumno + " " + apellido_alumno;
     }
   
 }
