@@ -66,7 +66,7 @@ public class MateriaData {
         try {
             //nuestro string ACTUALIZA (update) la tabla materias, para cambiar el nombre de la materia
             //el año de cursada, donde el id_materia sea especificado, y su estado este activo
-            String sql = "UPDATE materias SET nombre_materia = ?, anio = ? WHERE id_materia = ? AND estado = 1;";
+            String sql = "UPDATE materias SET nombre_materia = ?, anio = ? WHERE id_materia = ?;";
             PreparedStatement ps = conexion.prepareStatement(sql);
             ps.setString(1, materia.getNombre_materia());
             ps.setInt(2, materia.getAnio());

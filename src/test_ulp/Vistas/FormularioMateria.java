@@ -11,8 +11,7 @@ public class FormularioMateria extends javax.swing.JInternalFrame {
 
     public FormularioMateria() {
         initComponents();
-        btnEliminar.setEnabled(false);
-        txtCodigo.requestFocus();
+        limpiar();
     }
 
     @SuppressWarnings("unchecked")
@@ -32,6 +31,7 @@ public class FormularioMateria extends javax.swing.JInternalFrame {
         lblEstadoValor = new javax.swing.JLabel();
         btnEliminar = new javax.swing.JButton();
         btnNuevo = new javax.swing.JButton();
+        btnModificar = new javax.swing.JButton();
 
         setClosable(true);
 
@@ -77,6 +77,13 @@ public class FormularioMateria extends javax.swing.JInternalFrame {
             }
         });
 
+        btnModificar.setText("Modificar");
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -84,34 +91,39 @@ public class FormularioMateria extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(68, 68, 68)
+                        .addGap(36, 36, 36)
                         .addComponent(btnGuardar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnModificar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnEliminar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnNuevo))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(92, 92, 92)
-                        .addComponent(lblTitulo))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(84, 84, 84)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblNombre)
-                            .addComponent(lblAnio)
-                            .addComponent(lblEstado)
-                            .addComponent(lblCodigo))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(96, 96, 96)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnBuscar))
-                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtAnio, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(lblNombre)
+                                    .addComponent(lblAnio)
+                                    .addComponent(lblEstado)
+                                    .addComponent(lblCodigo))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(btnBuscar))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(6, 6, 6)
+                                        .addComponent(lblEstadoValor))
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(txtAnio, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(txtNombre, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE))))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addComponent(lblEstadoValor)))))
-                .addContainerGap(80, Short.MAX_VALUE))
+                                .addGap(8, 8, 8)
+                                .addComponent(lblTitulo)))))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -135,18 +147,20 @@ public class FormularioMateria extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblEstadoValor)
                     .addComponent(lblEstado))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGuardar)
                     .addComponent(btnEliminar)
-                    .addComponent(btnNuevo))
-                .addGap(20, 20, 20))
+                    .addComponent(btnNuevo)
+                    .addComponent(btnModificar))
+                .addGap(26, 26, 26))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        btnNuevo.setEnabled(true);
         if (txtCodigo.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "El campo 'Codigo' esta vacio!");
         } else {
@@ -165,6 +179,8 @@ public class FormularioMateria extends javax.swing.JInternalFrame {
                     lblEstadoValor.setForeground(Color.red);
                     btnEliminar.setEnabled(false);
                 }
+                btnModificar.setEnabled(true);
+                btnGuardar.setEnabled(false);
             } else {
                 limpiar();
                 txtCodigo.requestFocus();
@@ -179,7 +195,11 @@ public class FormularioMateria extends javax.swing.JInternalFrame {
         } else {
             materia = new Materia(txtNombre.getText(), Integer.parseInt(txtAnio.getText()), true);
             md.guardarMateria(materia);
-            JOptionPane.showMessageDialog(this, "Materia guardada! ID:"+materia.getId_materia());
+            limpiar();
+            JOptionPane.showMessageDialog(this, "Materia guardada! [ID:"+materia.getId_materia()+"] [ESTADO:Activa]");
+        }
+        if (btnGuardar.getText() == "Modificar") {
+            JOptionPane.showMessageDialog(this, "se puede moficad");
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
@@ -191,8 +211,15 @@ public class FormularioMateria extends javax.swing.JInternalFrame {
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
         limpiar();
-        txtCodigo.requestFocus();
     }//GEN-LAST:event_btnNuevoActionPerformed
+
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+        materia.setNombre_materia(txtNombre.getText());
+        materia.setAnio(Integer.parseInt(txtAnio.getText()));
+        md.modificarMateria(materia);
+        limpiar();
+        JOptionPane.showMessageDialog(this, "Materia modificada!");
+    }//GEN-LAST:event_btnModificarActionPerformed
 
     public void limpiar() {
         txtCodigo.setText("");
@@ -200,13 +227,18 @@ public class FormularioMateria extends javax.swing.JInternalFrame {
         txtAnio.setText("");
         lblEstadoValor.setText("-/-");
         lblEstadoValor.setForeground(Color.black);
+        txtCodigo.requestFocus();
         btnEliminar.setEnabled(false);
+        btnNuevo.setEnabled(false);
+        btnModificar.setEnabled(false);
+        btnGuardar.setEnabled(true);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGuardar;
+    private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnNuevo;
     private javax.swing.JLabel lblAnio;
     private javax.swing.JLabel lblCodigo;
