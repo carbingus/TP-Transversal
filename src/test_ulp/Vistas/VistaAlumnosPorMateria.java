@@ -1,11 +1,16 @@
 package test_ulp.Vistas;
 
 import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import test_ulp.AccesoADatos.InscripcionData;
 import test_ulp.AccesoADatos.MateriaData;
+import test_ulp.Entidades.Alumno;
 import test_ulp.Entidades.Materia;
 
 public class VistaAlumnosPorMateria extends javax.swing.JInternalFrame {
     private MateriaData mData = new MateriaData();
+    private InscripcionData iData = new InscripcionData();
+    private DefaultTableModel tabla = new DefaultTableModel();
 
     public VistaAlumnosPorMateria() {
         initComponents();
@@ -14,6 +19,12 @@ public class VistaAlumnosPorMateria extends javax.swing.JInternalFrame {
         for (Materia m : listaMaterias) {
             cmbMaterias.addItem(m);
         }
+        
+        tablaAlumnos.setModel(tabla);
+        tabla.addColumn("ID");
+        tabla.addColumn("DNI");
+        tabla.addColumn("APELLIDO");
+        tabla.addColumn("NOMBRE");
     }
 
     @SuppressWarnings("unchecked")
@@ -45,6 +56,12 @@ public class VistaAlumnosPorMateria extends javax.swing.JInternalFrame {
             }
         ));
         jScrollPane1.setViewportView(tablaAlumnos);
+
+        cmbMaterias.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbMateriasActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -82,7 +99,24 @@ public class VistaAlumnosPorMateria extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    
+    private void cmbMateriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbMateriasActionPerformed
+        limpiarTabla();
+        
+        Materia m = (Materia)cmbMaterias.getSelectedItem();
+        List<Alumno> listaAlumnos = iData.obtenerAlumnosPorMateria(m.getId_materia());
+        
+        for (Alumno a : listaAlumnos) {
+            tabla.addRow(new Object[] {a.getId_alumno(), a.getDni_alumno(), a.getApellido_alumno(), a.getNombre_alumno()});
+        }
+    }//GEN-LAST:event_cmbMateriasActionPerformed
+
+    public void limpiarTabla() {
+        int nroFilas = tabla.getRowCount()-1;
+        while (nroFilas >= 0) {
+            tabla.removeRow(nroFilas);
+            nroFilas--;
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<Materia> cmbMaterias;

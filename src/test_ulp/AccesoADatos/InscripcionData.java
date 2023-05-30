@@ -217,8 +217,8 @@ public class InscripcionData {
                 List<Alumno> alumnosMateria = new ArrayList<>();  
 
         try {
-            String sql = "SELECT a.id_alumno, dni_alumno, nombre_alumno, apellido_alumno ,fechaNacimiento, estado_alumno "
-                    + "FROM inscripcion i,alumno a WHERE i.id_alumno = a.id_alumno AND id_materia = ? AND a.estado_alumno = 1;";
+            String sql = "SELECT a.id_alumno, dni_alumno, nombre_alumno, apellido_alumno ,fechaNacimiento, estado_alumno FROM inscripcion i, alumnos a "
+                    + "WHERE i.id_alumno = a.id_alumno AND id_materia = ? AND a.estado_alumno = 1;";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1,idMateria);
             ResultSet rs = ps.executeQuery();
