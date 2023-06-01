@@ -118,7 +118,7 @@ public class AlumnoData {
         
         // aca generamos una ACTUALIZACION (update) en la tabla alumnos, donde podremos cambiar
         //el dni, apellido, nombre, y fecha de nacimiento cuando pasemos el id_alumno por parametro
-        String sql = "UPDATE alumnos SET dni_alumno = ? , apellido_alumno = ?, nombre_alumno = ?, fechaNacimiento = ? WHERE  id_alumno = ?";
+        String sql = "UPDATE alumnos SET dni_alumno = ? , apellido_alumno = ?, nombre_alumno = ?, fechaNacimiento = ?, estado_alumno = ? WHERE  id_alumno = ?";
         PreparedStatement ps = null;
 
         try {
@@ -127,7 +127,8 @@ public class AlumnoData {
             ps.setString(2, alumno.getApellido_alumno());
             ps.setString(3, alumno.getNombre_alumno());
             ps.setDate(4, Date.valueOf(alumno.getFechaNacimiento()));
-            ps.setInt(5, alumno.getId_alumno());
+            ps.setBoolean(5, alumno.isEstado_alumno());
+            ps.setInt(6, alumno.getId_alumno());
             int exito = ps.executeUpdate();
             
             if (exito == 1) {
