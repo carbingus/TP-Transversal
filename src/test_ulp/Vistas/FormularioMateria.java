@@ -12,6 +12,8 @@ public class FormularioMateria extends javax.swing.JInternalFrame {
     public FormularioMateria() {
         initComponents();
         limpiar();
+        setTitle("Formulario de Materias");
+        setResizable(false);
     }
 
     @SuppressWarnings("unchecked")
