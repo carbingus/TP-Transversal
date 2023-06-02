@@ -86,7 +86,7 @@ public class AlumnoData {
     
     public Alumno buscarAlumnoPorDni(int dni) {
         Alumno alumno = null;
-        String sql = "SELECT id_alumno, dni_alumno, apellido_alumno, nombre_alumno, fechaNacimiento FROM alumnos WHERE dni_alumno = ? AND estado_alumno = 1";
+        String sql = "SELECT id_alumno, dni_alumno, apellido_alumno, nombre_alumno, fechaNacimiento, estado_alumno FROM alumnos WHERE dni_alumno = ?";
         PreparedStatement ps = null;
         try {
             ps = con.prepareStatement(sql);
@@ -100,10 +100,11 @@ public class AlumnoData {
                 alumno.setApellido_alumno(rs.getString("apellido_alumno"));
                 alumno.setNombre_alumno(rs.getString("nombre_alumno"));
                 alumno.setFechaNacimiento(rs.getDate("fechaNacimiento").toLocalDate());
-                alumno.setEstado_alumno(true);
+                alumno.setEstado_alumno(rs.getBoolean("estado_alumno"));
 
             } else {
-                JOptionPane.showMessageDialog(null, "No existe el alumno");
+                JOptionPane.showMessageDialog(null, "El DNI indicado no pertenece a ningun alumno dentro de la base de datos."+
+                        "\nVerifique que el documento ingresado es correcto.");
             }
             ps.close();
         } catch (SQLException ex) {
